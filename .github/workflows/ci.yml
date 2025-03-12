@@ -25,20 +25,3 @@ jobs:
         run: |
           source venv/bin/activate
           PYTHONPATH=$(pwd) pytest
-
-  deploy:
-    runs-on: ubuntu-latest
-    needs: test
-
-    steps:
-      - name: Joining and deploying
-        uses: appleboy/ssh-action@v0.1.6
-        with:
-          host: 10.0.2.15
-          username: admin
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: |
-            cd ~/Prac6
-            git pull origin main
-            docker-compose down
-            docker-compose up --build -d
