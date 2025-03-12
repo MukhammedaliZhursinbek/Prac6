@@ -23,13 +23,13 @@ jobs:
             git pull origin main
             docker-compose up --build -d
 
-notify:
-  needs: deploy
-  runs-on: ubuntu-latest
-  steps:
-    - name: Slack Notification
-      uses: rtCamp/action-slack-notify@v2
-      env:
-        SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
-        SLACK_MESSAGE: "Deployed successful"
-        STATUS: success
+  notify:
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Slack Notification
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+          SLACK_MESSAGE: "Deployed successful"
+          STATUS: success
